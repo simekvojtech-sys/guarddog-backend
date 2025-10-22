@@ -2,7 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
-from app import db
+
+# Robust import that works both locally and on Render
+try:
+    from . import db            # relative import (preferred when app is a package)
+except Exception:
+    import importlib
+    db = importlib.import_module("app.db")  # absolute fallback for Render
 
 app = FastAPI(title="Guard Dog API", version="0.1.0")
 
