@@ -1,3 +1,4 @@
+from . import db
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -52,3 +53,7 @@ def events(ticker: str, from_: str | None = None, to: str | None = None):
 def reports(period: str = "week"):
     # TODO: return compiled user reports from DB
     return [{"id": "rpt_demo", "period_start": "2025-10-20", "period_end": "2025-10-27", "items": []}]
+@app.get("/api/db/ping")
+def db_ping():
+    """Verify API can connect to Postgres (Neon)."""
+    return db.ping()
