@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
-from . import db
+from app import db
 
 app = FastAPI(title="Guard Dog API", version="0.1.0")
 
