@@ -2,6 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
+import sys
+from pathlib import Path
+
+# Make sure the directory that contains main.py & db.py is on sys.path
+THIS_DIR = Path(__file__).resolve().parent
+if str(THIS_DIR) not in sys.path:
+    sys.path.insert(0, str(THIS_DIR))
+
+# Now a simple sibling import works
+import db  # app/app/db.py
 
 # Robust import that works both locally and on Render
 try:
@@ -61,5 +71,4 @@ def reports(period: str = "week"):
     return [{"id": "rpt_demo", "period_start": "2025-10-20", "period_end": "2025-10-27", "items": []}]
 @app.get("/api/db/ping")
 def db_ping():
-    """Verify API can connect to Postgres (Neon)."""
     return db.ping()
