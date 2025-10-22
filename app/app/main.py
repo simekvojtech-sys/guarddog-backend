@@ -2,9 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
-import sys
-from pathlib import Path
 
+import db
 # Make sure the directory that contains main.py & db.py is on sys.path
 THIS_DIR = Path(__file__).resolve().parent
 if str(THIS_DIR) not in sys.path:
